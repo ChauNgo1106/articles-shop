@@ -6,6 +6,8 @@ import com.tecalliance.articles_shop.model.Discount;
 import com.tecalliance.articles_shop.repositories.ArticleRepository;
 import com.tecalliance.articles_shop.repositories.DiscountRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -16,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PriceCalculatorService {
     private final DiscountRepository discountRepository;
     private final ArticleRepository articleRepository;
@@ -32,7 +34,7 @@ public class PriceCalculatorService {
     }
 
     public BigDecimal calculatedPrice(Article article, LocalDate date){
-        List<Discount> validDiscounts = discountRepository.findByArticleIdAndExpiryDate(article.getId(), date, date);
+        List<Discount> validDiscounts = discountRepository.findByArticleIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(article.getId(), date, date);
 
         return validDiscounts.stream()
                 .sorted(Comparator.comparing(Discount::getDiscountRate).reversed())

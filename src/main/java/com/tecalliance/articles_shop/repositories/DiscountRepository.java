@@ -7,5 +7,5 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface DiscountRepository extends JpaRepository<Discount, Long> {
-    List<Discount> findByArticleIdAndExpiryDate(Long articleId, LocalDate startDate, LocalDate endDate);
+    List<Discount> findByArticleIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(Long articleId, LocalDate startDate, LocalDate endDate);
 }
