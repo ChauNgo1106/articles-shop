@@ -1,13 +1,14 @@
 package com.tecalliance.articles_shop.services;
 
 import com.tecalliance.articles_shop.dto.ArticlePriceDTO;
+import com.tecalliance.articles_shop.dto.ArticlePriceResponse;
 import com.tecalliance.articles_shop.model.Article;
 import com.tecalliance.articles_shop.model.Discount;
 import com.tecalliance.articles_shop.repositories.ArticleRepository;
 import com.tecalliance.articles_shop.repositories.DiscountRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -23,19 +24,33 @@ public class PriceCalculatorService {
     private final DiscountRepository discountRepository;
     private final ArticleRepository articleRepository;
 
-    public List<ArticlePriceDTO> getPricesForDate(LocalDate date){
-        return articleRepository.findAll()
+    public ArticlePriceResponse getPricesForDate(LocalDate date, Pageable pageable, int limit, int offset) {
+
+        Page<Article> articlesPage = articleRepository.findAll(pageable);
+        List<ArticlePriceDTO> articleList = articlesPage
                 .stream()
                 .map(article -> {
                     BigDecimal finalPrice = calculatedPrice(article, date);
                     return new ArticlePriceDTO(article.getName(), finalPrice);
                 })
                 .collect(Collectors.toList());
+
+        return ArticlePriceResponse.builder()
+                .limit(limit)
+                .offset(offset)
+                .totalElements((int)articlesPage.getTotalElements())
+                .totalPages(articlesPage.getTotalPages())
+                .numberOfElements(articlesPage.getNumberOfElements())
+                .articles(articleList).build();
     }
 
     public BigDecimal calculatedPrice(Article article, LocalDate date){
         List<Discount> validDiscounts = discountRepository.findByArticleIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(article.getId(), date, date);
 
+        //no discount available
+        if(validDiscounts.isEmpty()){
+            return article.getSalesPrice();
+        }
         return validDiscounts.stream()
                 .sorted(Comparator.comparing(Discount::getDiscountRate).reversed())
                 .map(discount -> article.getSalesPrice()

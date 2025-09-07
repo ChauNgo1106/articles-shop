@@ -8,7 +8,8 @@ INSERT INTO article (id, name, slogan, net_price, sales_price, vat_ratio) VALUES
                                                                               (7, 'Keyboard', 'Type with precision', 40.00, 70.00, 0.08),
                                                                               (8, 'Smartwatch', 'Time meets tech', 150.00, 220.00, 0.15),
                                                                               (9, 'Bluetooth Speaker', 'Sound on the go', 60.00, 100.00, 0.10),
-                                                                              (10, 'External SSD', 'Speed you can carry', 90.00, 130.00, 0.12);
+                                                                              (10, 'External SSD', 'Speed you can carry', 90.00, 130.00, 0.12),
+                                                                              (11, 'Flash Drive', 'Unlimited storage you can store', 10.00, 20.00, 0.12);
 
 INSERT INTO discount (id, article_id, discount_rate, start_date, end_date) VALUES
                                                                                (1, 1, 0.10, '2025-09-01', '2025-09-10'),
