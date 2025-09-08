@@ -3,12 +3,14 @@ package com.tecalliance.articles_shop.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Builder
 @AllArgsConstructor
 @Data
+@NoArgsConstructor
 public class ArticlePriceResponse {
     private int totalPages;
     private int totalElements;

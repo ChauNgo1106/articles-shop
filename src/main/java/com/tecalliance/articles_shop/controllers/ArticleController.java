@@ -38,7 +38,7 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ArticleResponse> getArticleById(@PathVariable String id){
+    public ResponseEntity<ArticleResponse> getArticleById(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(articleService.getArticleById(id));
     }
 

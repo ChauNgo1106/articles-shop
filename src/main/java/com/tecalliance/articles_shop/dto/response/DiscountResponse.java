@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 public class DiscountResponse {
-    private int id;
+    private Long id;
     private BigDecimal discountRate;
     private LocalDate startDate;
     private LocalDate endDate;

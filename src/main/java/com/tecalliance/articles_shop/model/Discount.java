@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class Discount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private BigDecimal discountRate;
     private LocalDate startDate;

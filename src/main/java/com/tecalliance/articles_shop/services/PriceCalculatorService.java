@@ -46,11 +46,11 @@ public class PriceCalculatorService {
 
     public BigDecimal calculatedPrice(Article article, LocalDate date){
         List<Discount> validDiscounts = discountRepository.findByArticleIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(article.getId(), date, date);
-
         //no discount available
         if(validDiscounts.isEmpty()){
             return article.getSalesPrice();
         }
+
         return validDiscounts.stream()
                 .sorted(Comparator.comparing(Discount::getDiscountRate).reversed())
                 .map(discount -> article.getSalesPrice()
