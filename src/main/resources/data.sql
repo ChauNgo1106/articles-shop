@@ -30,3 +30,7 @@ INSERT INTO discount (id, article_id, discount_rate, start_date, end_date) VALUE
                                                                                (16, 9, 0.25, '2025-09-07', '2025-09-07'),
                                                                                (17, 10, 0.10, '2025-09-01', '2025-09-15'),
                                                                                (18, 10, 0.15, '2025-09-10', '2025-09-12');
+-- This statement is to prevent auto-generated ID starting from 1
+-- and cause primary key duplicate constraint
+ALTER TABLE article ALTER COLUMN id RESTART WITH 12;
+ALTER TABLE discount ALTER COLUMN id RESTART WITH 19;
