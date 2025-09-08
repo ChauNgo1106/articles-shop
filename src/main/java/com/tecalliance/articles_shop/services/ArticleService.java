@@ -1,10 +1,17 @@
 package com.tecalliance.articles_shop.services;
 
 import com.tecalliance.articles_shop.dto.request.ArticleCreateRequest;
+import com.tecalliance.articles_shop.dto.response.ArticleResponse;
+import com.tecalliance.articles_shop.dto.response.DiscountResponse;
 import com.tecalliance.articles_shop.model.Article;
+import com.tecalliance.articles_shop.model.Discount;
 import com.tecalliance.articles_shop.repositories.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Comparator;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,5 +27,26 @@ public class ArticleService {
         article.setSalesPrice(articleCreateRequest.getSalesPrice());
         article.setVatRatio(articleCreateRequest.getVatRatio());
         return articleRepository.save(article);
+    }
+
+    public ArticleResponse getArticleById(String id){
+        Article article = articleRepository.findById(Long.parseLong(id)).orElseThrow(
+                () -> new IllegalArgumentException("Article (id: " + id + ")" + " Not Found")
+        );
+
+        return ArticleResponse.builder()
+                .id(article.getId())
+                .name(article.getName())
+                .slogan(article.getSlogan())
+                .netPrice(article.getNetPrice())
+                .salesPrice(article.getSalesPrice())
+                .vatRatio(article.getVatRatio())
+                .discountRateList(article.getDiscounts()
+                        .stream()
+                        .map(Discount::getDiscountRate)
+                        .sorted(Comparator.reverseOrder())
+                        .toList()
+                )
+                .build();
     }
 }

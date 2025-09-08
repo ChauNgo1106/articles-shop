@@ -2,6 +2,7 @@ package com.tecalliance.articles_shop.controllers;
 
 import com.tecalliance.articles_shop.dto.request.ArticleCreateRequest;
 import com.tecalliance.articles_shop.dto.response.ArticlePriceResponse;
+import com.tecalliance.articles_shop.dto.response.ArticleResponse;
 import com.tecalliance.articles_shop.model.Article;
 import com.tecalliance.articles_shop.services.ArticleService;
 import com.tecalliance.articles_shop.services.PriceCalculatorService;
@@ -34,6 +35,11 @@ public class ArticleController {
     @PostMapping("/addArticle")
     public ResponseEntity<Article> postArticle(@RequestBody ArticleCreateRequest articleCreateRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(articleService.createArticle(articleCreateRequest));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ArticleResponse> getArticleById(@PathVariable String id){
+        return ResponseEntity.status(HttpStatus.OK).body(articleService.getArticleById(id));
     }
 
 }

@@ -1,6 +1,6 @@
 package com.tecalliance.articles_shop.controllers;
 
-import com.tecalliance.articles_shop.dto.request.DiscountRequest;
+import com.tecalliance.articles_shop.dto.request.DiscountCreateRequest;
 import com.tecalliance.articles_shop.dto.response.DiscountResponse;
 import com.tecalliance.articles_shop.model.Discount;
 import com.tecalliance.articles_shop.services.DiscountService;
@@ -20,8 +20,8 @@ public class DiscountController {
     private final DiscountService discountService;
 
     @PostMapping("/addDiscount")
-    public ResponseEntity<DiscountResponse> addDiscount(@RequestBody DiscountRequest discountRequest){
-        Discount discount = discountService.createDiscount(discountRequest);
+    public ResponseEntity<DiscountResponse> addDiscount(@RequestBody DiscountCreateRequest discountCreateRequest){
+        Discount discount = discountService.createDiscount(discountCreateRequest);
         DiscountResponse response = DiscountResponse.builder()
                 .id(discount.getId())
                 .discountRate(discount.getDiscountRate())

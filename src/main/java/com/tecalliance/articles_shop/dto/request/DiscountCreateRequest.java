@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
-public class DiscountRequest {
+public class DiscountCreateRequest {
     private BigDecimal discountRate;
     private LocalDate startDate;
     private LocalDate endDate;
