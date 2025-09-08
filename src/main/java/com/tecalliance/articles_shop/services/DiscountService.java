@@ -1,6 +1,6 @@
 package com.tecalliance.articles_shop.services;
 
-import com.tecalliance.articles_shop.dto.DiscountDTO;
+import com.tecalliance.articles_shop.dto.request.DiscountRequest;
 import com.tecalliance.articles_shop.model.Article;
 import com.tecalliance.articles_shop.model.Discount;
 import com.tecalliance.articles_shop.repositories.ArticleRepository;
@@ -17,15 +17,15 @@ public class DiscountService {
     private final DiscountRepository discountRepository;
     private final ArticleRepository articleRepository;
 
-    public Discount createDiscount(DiscountDTO discountDTO){
-        Optional<Article> article = articleRepository.findById(discountDTO.getArticleId());
+    public Discount createDiscount(DiscountRequest discountRequest){
+        Optional<Article> article = articleRepository.findById(discountRequest.getArticleId());
         if (article.isEmpty()) {
-            throw new IllegalArgumentException("Article (id: " + discountDTO.getArticleId() + ")" + " Not Found");
+            throw new IllegalArgumentException("Article (id: " + discountRequest.getArticleId() + ")" + " Not Found");
         }
         Discount discount = Discount.builder()
-                .discountRate(discountDTO.getDiscountRate())
-                .startDate(discountDTO.getStartDate())
-                .endDate(discountDTO.getEndDate())
+                .discountRate(discountRequest.getDiscountRate())
+                .startDate(discountRequest.getStartDate())
+                .endDate(discountRequest.getEndDate())
                 .article(article.get())
                 .build();
         return discountRepository.save(discount);

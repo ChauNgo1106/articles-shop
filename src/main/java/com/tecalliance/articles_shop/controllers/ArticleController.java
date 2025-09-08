@@ -1,7 +1,7 @@
 package com.tecalliance.articles_shop.controllers;
 
-import com.tecalliance.articles_shop.dto.ArticleCreateRequest;
-import com.tecalliance.articles_shop.dto.ArticlePriceResponse;
+import com.tecalliance.articles_shop.dto.request.ArticleCreateRequest;
+import com.tecalliance.articles_shop.dto.response.ArticlePriceResponse;
 import com.tecalliance.articles_shop.model.Article;
 import com.tecalliance.articles_shop.services.ArticleService;
 import com.tecalliance.articles_shop.services.PriceCalculatorService;

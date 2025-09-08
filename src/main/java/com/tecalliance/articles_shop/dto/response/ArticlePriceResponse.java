@@ -1,4 +1,4 @@
-package com.tecalliance.articles_shop.dto;
+package com.tecalliance.articles_shop.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

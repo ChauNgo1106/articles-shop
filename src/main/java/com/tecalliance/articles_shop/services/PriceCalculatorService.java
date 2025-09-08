@@ -1,7 +1,7 @@
 package com.tecalliance.articles_shop.services;
 
-import com.tecalliance.articles_shop.dto.ArticlePriceDTO;
-import com.tecalliance.articles_shop.dto.ArticlePriceResponse;
+import com.tecalliance.articles_shop.dto.response.ArticlePriceDTO;
+import com.tecalliance.articles_shop.dto.response.ArticlePriceResponse;
 import com.tecalliance.articles_shop.model.Article;
 import com.tecalliance.articles_shop.model.Discount;
 import com.tecalliance.articles_shop.repositories.ArticleRepository;

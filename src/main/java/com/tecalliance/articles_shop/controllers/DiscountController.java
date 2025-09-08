@@ -1,6 +1,7 @@
 package com.tecalliance.articles_shop.controllers;
 
-import com.tecalliance.articles_shop.dto.DiscountDTO;
+import com.tecalliance.articles_shop.dto.request.DiscountRequest;
+import com.tecalliance.articles_shop.dto.response.DiscountResponse;
 import com.tecalliance.articles_shop.model.Discount;
 import com.tecalliance.articles_shop.services.DiscountService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,15 @@ public class DiscountController {
     private final DiscountService discountService;
 
     @PostMapping("/addDiscount")
-    public ResponseEntity<Discount> addDiscount(@RequestBody DiscountDTO discountDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(discountService.createDiscount(discountDTO));
+    public ResponseEntity<DiscountResponse> addDiscount(@RequestBody DiscountRequest discountRequest){
+        Discount discount = discountService.createDiscount(discountRequest);
+        DiscountResponse response = DiscountResponse.builder()
+                .id(discount.getId())
+                .discountRate(discount.getDiscountRate())
+                .startDate(discount.getStartDate())
+                .endDate(discount.getEndDate())
+                .articlesName(discount.getArticle().getName())
+                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

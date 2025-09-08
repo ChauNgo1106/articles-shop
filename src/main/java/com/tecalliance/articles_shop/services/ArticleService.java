@@ -1,6 +1,6 @@
 package com.tecalliance.articles_shop.services;
 
-import com.tecalliance.articles_shop.dto.ArticleCreateRequest;
+import com.tecalliance.articles_shop.dto.request.ArticleCreateRequest;
 import com.tecalliance.articles_shop.model.Article;
 import com.tecalliance.articles_shop.repositories.ArticleRepository;
 import lombok.RequiredArgsConstructor;
