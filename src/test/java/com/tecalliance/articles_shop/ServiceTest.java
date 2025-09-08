@@ -7,7 +7,6 @@ import com.tecalliance.articles_shop.model.Discount;
 import com.tecalliance.articles_shop.repositories.ArticleRepository;
 import com.tecalliance.articles_shop.repositories.DiscountRepository;
 import com.tecalliance.articles_shop.services.ArticleService;
-import com.tecalliance.articles_shop.services.DiscountService;
 import com.tecalliance.articles_shop.services.PriceCalculatorService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -38,9 +37,6 @@ class ServiceTest {
 
     @InjectMocks
     private ArticleService articleService;
-
-    @InjectMocks
-    private DiscountService discountService;
 
     @InjectMocks
     private PriceCalculatorService priceCalculatorService;
@@ -121,7 +117,7 @@ class ServiceTest {
         BigDecimal result = priceCalculatorService.calculatedPrice(article, date);
 
         // Then
-        BigDecimal expected = new BigDecimal("90.00"); // 100 - 10% = 90, equal to netPrice → fallback to netPrice
+        BigDecimal expected = new BigDecimal("90.00"); // 100 - 100 * 10% = 90
         assertEquals(result, expected);
     }
 
